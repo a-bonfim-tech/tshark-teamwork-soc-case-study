@@ -50,6 +50,9 @@ Analyze a provided PCAP file (`teamwork.pcap`) to identify malicious activity an
 ### Conclusion
 The investigation confirms a phishing incident with likely credential compromise, following a realistic Tier 1 / Tier 2 SOC workflow using command-line network analysis.
 
+Security scope and safe reporting expectations are documented in
+[SECURITY.md](SECURITY.md).
+
 ---
 
 ## [PT] Estudo de Caso — Detecção de Phishing via Análise de Tráfego
