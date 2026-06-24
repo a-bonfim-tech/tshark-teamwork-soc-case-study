@@ -4,6 +4,8 @@ Languages: **[EN] [PT] [DE]**
 
 This repository documents a SOC-style network forensics investigation using **TShark (CLI)**, focusing on phishing detection, IOC extraction, and threat intelligence correlation.
 
+Executive summary: [EXECUTIVE_SUMMARY.md](EXECUTIVE_SUMMARY.md)
+
 ---
 
 ## Proof of Completion
