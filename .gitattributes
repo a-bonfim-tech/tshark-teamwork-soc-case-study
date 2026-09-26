@@ -1,0 +1,5 @@
+# Preserve raw TShark output byte-for-byte.
+# These generated files legitimately contain whitespace that Git would
+# otherwise report as a diff --check error.
+evidence/http-posts.txt -whitespace
+evidence/timeline.txt -whitespace

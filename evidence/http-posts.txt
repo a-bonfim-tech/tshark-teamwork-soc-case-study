@@ -1,0 +1,108 @@
+Frame 6: Packet, 274 bytes on wire (2192 bits), 274 bytes captured (2192 bits)
+    Encapsulation type: Raw IP (7)
+    Arrival Time: Nov 14, 2023 23:13:20.500000000 CET
+    UTC Arrival Time: Nov 14, 2023 22:13:20.500000000 UTC
+    Epoch Arrival Time: 1700000000.500000000
+    [Time shift for this packet: 0.000000000 seconds]
+    [Time delta from previous captured frame: 100.000000 milliseconds]
+    [Time since reference or first frame: 500.000000 milliseconds]
+    Frame Number: 6
+    Frame Length: 274 bytes (2192 bits)
+    Capture Length: 274 bytes (2192 bits)
+    [Frame is marked: False]
+    [Frame is ignored: False]
+    [Protocols in frame: raw:ip:tcp:http:urlencoded-form]
+    Character encoding: ASCII (0)
+Raw packet data
+Internet Protocol Version 4, Src: 192.0.2.10, Dst: 192.0.2.20
+    0100 .... = Version: 4
+    .... 0101 = Header Length: 20 bytes (5)
+    Differentiated Services Field: 0x00 (DSCP: CS0, ECN: Not-ECT)
+        0000 00.. = Differentiated Services Codepoint: Default (0)
+        .... ..00 = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+    Total Length: 274
+    Identification: 0x1006 (4102)
+    010. .... = Flags: 0x2, Don't fragment
+        0... .... = Reserved bit: Not set
+        .1.. .... = Don't fragment: Set
+        ..0. .... = More fragments: Not set
+    ...0 0000 0000 0000 = Fragment Offset: 0
+    Time to Live: 64
+    Protocol: TCP (6)
+    Header Checksum: 0xa5c1 [validation disabled]
+    [Header checksum status: Unverified]
+    Source Address: 192.0.2.10
+    Destination Address: 192.0.2.20
+    [Stream index: 0]
+Transmission Control Protocol, Src Port: 51515, Dst Port: 80, Seq: 107, Ack: 91, Len: 234
+    Source Port: 51515
+    Destination Port: 80
+    [Stream index: 0]
+    [Stream Packet Number: 6]
+    [Conversation completeness: Incomplete, DATA (15)]
+        ..0. .... = RST: Absent
+        ...0 .... = FIN: Absent
+        .... 1... = Data: Present
+        .... .1.. = ACK: Present
+        .... ..1. = SYN-ACK: Present
+        .... ...1 = SYN: Present
+        [Completeness Flags: ··DASS]
+    [TCP Segment Len: 234]
+    Sequence Number: 107    (relative sequence number)
+    Sequence Number (raw): 1107
+    [Next Sequence Number: 341    (relative sequence number)]
+    Acknowledgment Number: 91    (relative ack number)
+    Acknowledgment number (raw): 9091
+    0101 .... = Header Length: 20 bytes (5)
+    Flags: 0x018 (PSH, ACK)
+        000. .... .... = Reserved: Not set
+        ...0 .... .... = Accurate ECN: Not set
+        .... 0... .... = Congestion Window Reduced: Not set
+        .... .0.. .... = ECN-Echo: Not set
+        .... ..0. .... = Urgent: Not set
+        .... ...1 .... = Acknowledgment: Set
+        .... .... 1... = Push: Set
+        .... .... .0.. = Reset: Not set
+        .... .... ..0. = Syn: Not set
+        .... .... ...0 = Fin: Not set
+        [TCP Flags: ·······AP···]
+    Window: 64240
+    [Calculated window size: 64240]
+    [Window size scaling factor: -2 (no window scaling used)]
+    Checksum: 0xa25c [unverified]
+    [Checksum Status: Unverified]
+    Urgent Pointer: 0
+    [Timestamps]
+        [Time since first frame in this TCP stream: 500.000000 milliseconds]
+        [Time since previous frame in this TCP stream: 100.000000 milliseconds]
+    [SEQ/ACK analysis]
+        [This is an ACK to the segment in frame: 5]
+        [The RTT to ACK the segment was: 100.000000 milliseconds]
+        [iRTT: 200.000000 milliseconds]
+        [Bytes in flight: 234]
+        [Bytes sent since last PSH flag: 234]
+    [Client Contiguous Streams: 1]
+    [Server Contiguous Streams: 1]
+    TCP payload (234 bytes)
+Hypertext Transfer Protocol
+    POST /submit HTTP/1.1\r\n
+        Request Method: POST
+        Request URI: /submit
+        Request Version: HTTP/1.1
+    Host: soc-lab.example\r\n
+    User-Agent: synthetic-soc-lab/1.0\r\n
+    Content-Type: application/x-www-form-urlencoded\r\n
+    Content-Length: 58\r\n
+        [Content length: 58]
+    Connection: keep-alive\r\n
+    \r\n
+    [Full request URI: http://soc-lab.example/submit]
+    File Data: 58 bytes
+HTML Form URL Encoded: application/x-www-form-urlencoded
+    Form item: "username" = "training-user"
+        Key: username
+        Value: training-user
+    Form item: "password" = "training-only-not-a-secret"
+        Key: password
+        Value: training-only-not-a-secret
+

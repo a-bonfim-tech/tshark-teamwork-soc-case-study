@@ -1,0 +1,5 @@
+frame.number	frame.time_relative	ip.src	ip.dst	http.request.method	http.request.uri	http.response.code
+4	0.300000000	192.0.2.10	192.0.2.20	GET	/status	
+5	0.400000000	192.0.2.20	192.0.2.10		/status	200
+6	0.500000000	192.0.2.10	192.0.2.20	POST	/submit	
+7	0.600000000	192.0.2.20	192.0.2.10		/submit	204
