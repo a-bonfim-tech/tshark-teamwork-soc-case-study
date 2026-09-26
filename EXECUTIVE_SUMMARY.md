@@ -2,51 +2,55 @@
 
 ## Objective
 
-Summarize the SOC-style network forensics case study in a form suitable for
-recruiters, mentors, and security reviewers who need the business and
-operational meaning before reading the technical investigation.
+Summarize this guided TryHackMe network-analysis case study for recruiters,
+mentors, and security reviewers while preserving the boundary between reported
+training findings and independently retained evidence.
 
 ## Context
 
 This repository documents an authorized TryHackMe training scenario using
-TShark command-line analysis. The investigation focuses on phishing detection,
-IOC extraction, HTTP traffic review, and threat-intelligence correlation.
+TShark command-line analysis. It records the exercise methodology and reported
+findings related to phishing analysis, IOC handling, HTTP traffic review, and
+threat-intelligence correlation.
 
-The case is a learning and portfolio artifact. It is not evidence from a real
-customer, employer, or third-party production incident.
+The case is a learning and portfolio artifact. The repository does not retain
+the supplied PCAP, command transcript, raw packet/output evidence, or dated
+threat-intelligence lookup required to independently verify the reported
+findings. It is not evidence from a real customer, employer, or third-party
+production incident.
 
 ## Investigation Summary
 
 | Area | Summary |
 | --- | --- |
-| Scenario | Network traffic analysis of a phishing-related PCAP |
+| Scenario | TryHackMe-guided analysis of a supplied phishing-related PCAP |
 | Primary tool | TShark |
-| Supporting source | VirusTotal correlation |
-| Main finding | Look-alike phishing domain impersonating PayPal |
-| Evidence type | HTTP traffic, POST activity, defanged IOC table, completion proof |
-| Outcome | Phishing activity confirmed in the training scenario |
+| Supporting source | VirusTotal, as reported in the training narrative |
+| Reported finding | Look-alike phishing domain and HTTP POST activity |
+| Retained evidence | Narrative documentation only; no PCAP, command output, packet excerpts, or dated threat-intelligence lookup |
+| Outcome | Training-derived findings recorded; independent verification is not possible from retained repository evidence |
 
-## Key Findings
+## Reported Training Findings
 
-1. A look-alike domain was identified in HTTP traffic.
-2. The domain was associated with PayPal impersonation.
-3. HTTP POST activity indicated credential-submission behavior in the scenario.
-4. IOCs were normalized and defanged before publication.
-5. The case follows a realistic Tier 1 / Tier 2 SOC reasoning flow.
+1. The training narrative reported a look-alike domain in HTTP traffic.
+2. It reported PayPal impersonation.
+3. It reported HTTP POST activity interpreted as credential-submission behavior.
+4. It reported IOC normalization/defanging and VirusTotal correlation.
+5. These statements are training-derived; the underlying packet and command evidence is not retained in this repository.
 
 ## Operational Value
 
-This project demonstrates:
+This project documents:
 
-- Network evidence review using command-line tooling.
-- IOC extraction and safe publication practices.
-- Phishing investigation reasoning.
+- A guided network-analysis methodology using command-line tooling.
+- An IOC-handling and safe-publication workflow.
+- Phishing-investigation reasoning within a controlled training scenario.
 - Defensive documentation in English, Portuguese, and German.
-- Awareness of scope, authorization, and safe handling expectations.
+- Awareness of scope, authorization, evidence boundaries, and safe handling expectations.
 
 ## Risk Interpretation
 
-If this were a real organization, the observed pattern would justify:
+If the reported training pattern were observed in a real organization, it would justify:
 
 - User credential-compromise triage.
 - Domain and URL blocking.
@@ -55,13 +59,19 @@ If this were a real organization, the observed pattern would justify:
 - Detection-rule development for similar look-alike domains.
 
 These response actions are contextual recommendations only. They are not
-evidence that a real organization was affected.
+evidence that a real organization was affected, that credentials were
+compromised, or that any containment action was performed.
 
 ## Evidence Handling
 
-Published indicators are defanged where appropriate. The repository should not
-contain live credentials, session values, private packet captures, or sensitive
-third-party data.
+No PCAP, command transcript, raw packet/output evidence, or dated
+threat-intelligence lookup is retained in this repository. Published narrative
+details should therefore be treated as training-derived rather than
+independently verified findings.
+
+The repository should not contain live credentials, session values, restricted
+challenge-answer material, private packet captures, or sensitive third-party
+data.
 
 Security scope and reporting expectations are documented in
 [SECURITY.md](SECURITY.md).
@@ -72,5 +82,7 @@ Recommended reading order:
 
 1. `EXECUTIVE_SUMMARY.md`
 2. `README.md`
-3. Screenshot proof of completion
-4. IOC table and methodology sections
+3. `SECURITY.md`
+
+The repository does not currently contain retained packet or command-output
+evidence for independent reproduction.
