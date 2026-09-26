@@ -1,103 +1,232 @@
-# 🦈 TShark Challenge I: Teamwork — SOC Case Study
+# TShark SOC Network Analysis Case Study
 
-Languages: **[EN] [PT] [DE]**
+A reproducible network-analysis portfolio project demonstrating hands-on **TShark CLI**, packet inspection, TCP conversation analysis, HTTP filtering, request/response correlation, timeline reconstruction and evidence handling.
 
-This repository documents a **TryHackMe-derived guided training case study** using **TShark (CLI)**, focused on phishing-related network analysis, IOC handling, and threat-intelligence correlation.
+The repository contains two explicitly separate evidence classes:
 
-The repository does not retain the supplied PCAP, TShark command output, raw packet excerpts, or dated threat-intelligence lookup required to independently verify the reported training findings.
+1. **Independent reproducible evidence** — a synthetic PCAP, generator, retained TShark outputs, hashes and reproduction instructions that can be independently verified.
+2. **Historical guided training** — documentation of an earlier TryHackMe exercise whose original PCAP and command evidence are not retained.
 
-Executive summary: [EXECUTIVE_SUMMARY.md](EXECUTIVE_SUMMARY.md)
+The independent lab demonstrates current technical execution. It does **not** retroactively validate the historical TryHackMe findings.
 
----
+## What this project demonstrates
 
-## Training Completion Record
+- Packet-level inspection with TShark
+- Source/destination and port identification
+- TCP conversation analysis
+- HTTP request extraction
+- HTTP method, Host and URI inspection
+- Controlled HTTP POST inspection
+- Request/response correlation
+- Timeline reconstruction
+- Reproducible synthetic PCAP generation
+- SHA-256 evidence integrity checks
+- Separation of direct observation from interpretation
 
-Training completion was reported in the earlier repository narrative, but the referenced completion screenshot is not retained in this repository.
+## Evidence at a glance
 
-Official TryHackMe room link:  
+The independent controlled lab retains a deterministic 10-packet IPv4/TCP/HTTP conversation.
+
+| Observable | Retained result |
+| --- | --- |
+| Client | `192.0.2.10:51515` |
+| Server | `192.0.2.20:80` |
+| HTTP Host | `soc-lab.example` |
+| Request 1 | `GET /status` |
+| Response 1 | `200` |
+| Request 2 | `POST /submit` |
+| Response 2 | `204` |
+| Synthetic form values | `training-user` / `training-only-not-a-secret` |
+| Packet count | `10` |
+| PCAP SHA-256 | `11637224b11102618aecfe98cac80a30834b4460129d9e54aed68f70076d67bc` |
+
+Direct evidence:
+
+- [PCAP](evidence/capture.pcap)
+- [Packet inventory](evidence/packet-summary.txt)
+- [TCP conversations](evidence/tcp-conversations.txt)
+- [HTTP requests](evidence/http-requests.txt)
+- [HTTP POST dissection](evidence/http-posts.txt)
+- [HTTP timeline](evidence/timeline.txt)
+- [Tool versions](evidence/tool-versions.txt)
+- [SHA-256 manifest](evidence/sha256.txt)
+- [Evidence notes](evidence/README.md)
+
+## Technical workflow
+
+~~~text
+Python standard-library generator
+        |
+        v
+deterministic synthetic PCAP
+        |
+        v
+TShark packet inspection
+        |
+        +--> packet inventory
+        +--> TCP conversation statistics
+        +--> HTTP request filtering
+        +--> POST field inspection
+        +--> request/response timeline
+        |
+        v
+retained outputs + SHA-256 verification
+~~~
+
+No live network traffic, third-party service, malware, real credential or production system is required for this lab.
+
+## Observed results
+
+TShark directly shows:
+
+- exactly 10 packets;
+- one TCP conversation between `192.0.2.10:51515` and `192.0.2.20:80`;
+- `GET /status`;
+- `POST /submit`;
+- `Host: soc-lab.example`;
+- HTTP responses `200` and `204`;
+- the synthetic POST fields `username=training-user` and `password=training-only-not-a-secret`;
+- the GET preceding the POST in the retained HTTP timeline.
+
+The generator produced the same PCAP SHA-256 hash on consecutive executions during validation.
+
+## SOC relevance
+
+The lab exercises mechanics directly relevant to Tier 1 network-focused triage:
+
+- reading packet evidence;
+- identifying communicating endpoints;
+- recognizing protocol behavior;
+- filtering for relevant traffic;
+- correlating requests and responses;
+- reconstructing event order;
+- extracting observable HTTP attributes;
+- preserving analysis artifacts;
+- distinguishing observation from inference.
+
+It does not claim SIEM, EDR, malware-analysis or production incident-response activity.
+
+## Reproduce
+
+Requirements:
+
+- Python 3
+- TShark
+
+Generate the deterministic PCAP:
+
+~~~sh
+python3 lab/generate_synthetic_pcap.py --output evidence/capture.pcap
+~~~
+
+Inspect the packet inventory:
+
+~~~sh
+tshark -r evidence/capture.pcap -n \
+  -T fields \
+  -E header=y \
+  -E separator=/t \
+  -e frame.number \
+  -e frame.time_relative \
+  -e ip.src \
+  -e tcp.srcport \
+  -e ip.dst \
+  -e tcp.dstport \
+  -e tcp.len \
+  -e _ws.col.Protocol
+~~~
+
+Inspect TCP conversations:
+
+~~~sh
+tshark -r evidence/capture.pcap -n -q -z conv,tcp
+~~~
+
+Extract HTTP requests:
+
+~~~sh
+tshark -r evidence/capture.pcap -n \
+  -Y 'http.request' \
+  -T fields \
+  -E header=y \
+  -E separator=/t \
+  -e frame.number \
+  -e ip.src \
+  -e ip.dst \
+  -e http.request.method \
+  -e http.host \
+  -e http.request.uri
+~~~
+
+Full reproduction instructions: [REPRODUCE.md](REPRODUCE.md).
+
+## Evidence boundary
+
+### Independent reproducible evidence
+
+The files under `lab/` and `evidence/` were created for this repository as a controlled synthetic lab.
+
+They directly demonstrate current TShark/network-analysis execution with retained input, commands, output and integrity hashes.
+
+### Historical guided training
+
+This repository also documents an earlier authorized TryHackMe exercise, **TShark Challenge I – Teamwork**.
+
+Official room:
+
 https://tryhackme.com/room/tsharkchallengesone
 
----
+The historical exercise involved analysis of a supplied training PCAP and a phishing-related scenario. The original TryHackMe PCAP, original TShark command transcript, raw packet excerpts, completion screenshot and dated threat-intelligence lookup are **not retained in this repository**.
 
-## [EN] Case Study — Phishing Detection via Network Traffic Analysis
+Earlier repository narratives reported a look-alike domain, HTTP POST activity interpreted as credential submission and threat-intelligence correlation. Those remain **training-derived historical statements**, not independently verified findings.
 
-**Platform:** TryHackMe  
-**Room:** TShark Challenge I – Teamwork  
-**Difficulty:** Easy  
-**Tools:** TShark, VirusTotal  
+No challenge answers, protected TryHackMe PCAP or reconstructed historical evidence are published here.
 
-### Objective
-The guided TryHackMe exercise involved analysis of a supplied PCAP file (`teamwork.pcap`) to investigate phishing-related network traffic and extract indicators for defensive analysis.
+### Not established by the independent lab
 
-### Methodology
-- Establish traffic baseline using TCP conversation statistics
-- Inspect HTTP traffic for suspicious domains
-- Review look-alike-domain indicators within the supplied training scenario
-- Review HTTP POST payloads for credential-submission indicators
-- Correlate reported indicators with VirusTotal within the training exercise
-- Normalize and defang IOCs
+The synthetic lab does not establish:
 
-### Reported Training Findings
-- The exercise narrative reported a look-alike domain impersonating **PayPal**.
-- It reported HTTP POST activity interpreted as credential submission.
-- It reported the domain as malicious based on threat-intelligence correlation.
+- a real phishing incident;
+- credential theft or compromise;
+- malicious-domain reputation;
+- VirusTotal reputation;
+- malware execution;
+- production traffic;
+- a real customer or employer incident;
+- historical TryHackMe packet findings.
 
-These are **training-derived reported findings**. This repository does not retain the PCAP, command transcript, raw output, or dated threat-intelligence lookup required to verify them independently.
+The synthetic lab demonstrates technical capability, not historical provenance.
 
-### Reported Training IOCs
-The earlier README listed defanged indicators from the exercise. Because their packet/output provenance is not retained here—and challenge answers should not be republished—those values are not presented as independently verified IOCs in this repository.
+## Repository structure
 
-### Conclusion
-The guided TryHackMe exercise documented a phishing-related scenario and credential-submission analysis. This repository supports the training narrative and methodology only; it does not independently confirm a phishing incident or credential compromise.
+~~~text
+.
+├── README.md
+├── EXECUTIVE_SUMMARY.md
+├── REPRODUCE.md
+├── SECURITY.md
+├── lab/
+│   └── generate_synthetic_pcap.py
+└── evidence/
+    ├── README.md
+    ├── capture.pcap
+    ├── packet-summary.txt
+    ├── tcp-conversations.txt
+    ├── http-requests.txt
+    ├── http-posts.txt
+    ├── timeline.txt
+    ├── tool-versions.txt
+    └── sha256.txt
+~~~
 
-Security scope and safe reporting expectations are documented in
-[SECURITY.md](SECURITY.md).
+## Evidence integrity
 
----
+Verify the retained manifest:
 
-## [PT] Estudo de Caso — Detecção de Phishing via Análise de Tráfego
+~~~sh
+shasum -a 256 -c evidence/sha256.txt
+~~~
 
-**Plataforma:** TryHackMe  
-**Sala:** TShark Challenge I – Teamwork  
-**Ferramentas:** TShark, VirusTotal  
+The manifest covers the generator, reproduction guide, PCAP and retained analysis outputs.
 
-### Objetivo
-O exercício guiado do TryHackMe envolveu a análise de um arquivo PCAP fornecido (`teamwork.pcap`) para investigar tráfego relacionado a phishing e extrair indicadores para análise defensiva.
-
-### Metodologia
-- Criação de baseline das conversas TCP
-- Inspeção de tráfego HTTP
-- Revisão de indicadores de domínio look-alike no cenário de treinamento fornecido
-- Revisão de payloads HTTP POST em busca de indicadores de envio de credenciais
-- Correlação dos indicadores relatados com VirusTotal no contexto do exercício
-- Normalização e defang de IOCs
-
-### Conclusão
-O exercício guiado do TryHackMe descreveu um cenário relacionado a phishing e análise de possível envio de credenciais. Este repositório sustenta apenas a narrativa de treinamento e a metodologia; não confirma de forma independente um incidente de phishing nem comprometimento de credenciais.
-
----
-
-## [DE] Fallstudie — Phishing-Erkennung durch Netzwerkverkehrsanalyse
-
-**Plattform:** TryHackMe  
-**Raum:** TShark Challenge I – Teamwork  
-**Werkzeuge:** TShark, VirusTotal  
-
-### Ziel
-Die geführte TryHackMe-Übung umfasste die Analyse einer bereitgestellten PCAP-Datei (`teamwork.pcap`), um phishingbezogenen Netzwerkverkehr zu untersuchen und Indikatoren für defensive Analysen zu erfassen.
-
-### Vorgehen
-- Baseline-Analyse der TCP-Konversationen
-- Untersuchung des HTTP-Verkehrs
-- Prüfung von Look-alike-Domain-Indikatoren im bereitgestellten Trainingsszenario
-- Prüfung von HTTP-POST-Payloads auf Hinweise auf eine Übermittlung von Zugangsdaten
-- Abgleich der im Training berichteten Indikatoren mit VirusTotal
-- Normalisierung und Defanging der IOCs
-
-### Fazit
-Die geführte TryHackMe-Übung behandelte ein phishingbezogenes Szenario und die Analyse einer möglichen Übermittlung von Zugangsdaten. Dieses Repository dokumentiert nur die Trainingsnarrative und Methodik; es bestätigt weder einen Phishing-Vorfall noch einen Credential Compromise unabhängig.
-
----
-
-**Author:** André  
-**Status:** Guided training case study; completion previously reported, retained completion proof not present
+Security scope and publication boundaries are documented in [SECURITY.md](SECURITY.md).

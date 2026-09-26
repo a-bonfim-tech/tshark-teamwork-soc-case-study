@@ -1,88 +1,98 @@
 # Executive Summary
 
-## Objective
+## Purpose
 
-Summarize this guided TryHackMe network-analysis case study for recruiters,
-mentors, and security reviewers while preserving the boundary between reported
-training findings and independently retained evidence.
+This repository demonstrates current hands-on network-analysis capability with TShark while preserving a strict boundary around an earlier TryHackMe training case whose original packet evidence is no longer retained.
 
-## Context
+A reviewer does not need to rely on the historical narrative to verify current technical execution: the repository now contains an independent synthetic PCAP, its generator, retained TShark outputs, reproduction instructions, tool-version evidence and SHA-256 hashes.
 
-This repository documents an authorized TryHackMe training scenario using
-TShark command-line analysis. It records the exercise methodology and reported
-findings related to phishing analysis, IOC handling, HTTP traffic review, and
-threat-intelligence correlation.
+## Independent Controlled Lab
 
-The case is a learning and portfolio artifact. The repository does not retain
-the supplied PCAP, command transcript, raw packet/output evidence, or dated
-threat-intelligence lookup required to independently verify the reported
-findings. It is not evidence from a real customer, employer, or third-party
-production incident.
+The reproducible lab uses only synthetic documentation-range addressing and fictitious application data.
 
-## Investigation Summary
-
-| Area | Summary |
+| Area | Retained evidence |
 | --- | --- |
-| Scenario | TryHackMe-guided analysis of a supplied phishing-related PCAP |
-| Primary tool | TShark |
-| Supporting source | VirusTotal, as reported in the training narrative |
-| Reported finding | Look-alike phishing domain and HTTP POST activity |
-| Retained evidence | Narrative documentation only; no PCAP, command output, packet excerpts, or dated threat-intelligence lookup |
-| Outcome | Training-derived findings recorded; independent verification is not possible from retained repository evidence |
+| Client | `192.0.2.10:51515` |
+| Server | `192.0.2.20:80` |
+| Protocols | IPv4, TCP, HTTP |
+| Host | `soc-lab.example` |
+| Requests | `GET /status`, `POST /submit` |
+| Responses | HTTP `200`, HTTP `204` |
+| Packet count | 10 |
+| Analysis tool | TShark |
+| Integrity | SHA-256 manifest |
+| Reproduction | `REPRODUCE.md` |
 
-## Reported Training Findings
+The POST includes the deliberately fictitious fields `training-user` and `training-only-not-a-secret`. They are lab data, not real credentials.
 
-1. The training narrative reported a look-alike domain in HTTP traffic.
-2. It reported PayPal impersonation.
-3. It reported HTTP POST activity interpreted as credential-submission behavior.
-4. It reported IOC normalization/defanging and VirusTotal correlation.
-5. These statements are training-derived; the underlying packet and command evidence is not retained in this repository.
+## Directly Demonstrated
 
-## Operational Value
+The retained evidence demonstrates:
 
-This project documents:
+- packet inventory;
+- endpoint and port identification;
+- TCP conversation analysis;
+- HTTP request filtering;
+- method, Host and URI extraction;
+- controlled POST inspection;
+- request/response correlation;
+- timeline reconstruction;
+- evidence retention;
+- deterministic PCAP generation;
+- SHA-256 integrity verification.
 
-- A guided network-analysis methodology using command-line tooling.
-- An IOC-handling and safe-publication workflow.
-- Phishing-investigation reasoning within a controlled training scenario.
-- Defensive documentation in English, Portuguese, and German.
-- Awareness of scope, authorization, evidence boundaries, and safe handling expectations.
+These mechanics are relevant to Tier 1 SOC analysis of observable network behavior.
 
-## Risk Interpretation
+## Historical Guided Training
 
-If the reported training pattern were observed in a real organization, it would justify:
+The repository also preserves documentation of the authorized TryHackMe **TShark Challenge I – Teamwork** exercise.
 
-- User credential-compromise triage.
-- Domain and URL blocking.
-- Proxy, DNS, and endpoint log review.
-- User notification and password reset workflow.
-- Detection-rule development for similar look-alike domains.
+The original supplied PCAP, command transcript, raw packet excerpts, completion screenshot and dated threat-intelligence lookup are not retained. Historical statements about phishing-related findings therefore remain training-derived narrative and are not independently verified by the current repository.
 
-These response actions are contextual recommendations only. They are not
-evidence that a real organization was affected, that credentials were
-compromised, or that any containment action was performed.
+The independent synthetic lab was created separately and does not recreate, redistribute or retroactively validate the original TryHackMe evidence.
 
-## Evidence Handling
+## Evidence Interpretation
 
-No PCAP, command transcript, raw packet/output evidence, or dated
-threat-intelligence lookup is retained in this repository. Published narrative
-details should therefore be treated as training-derived rather than
-independently verified findings.
+### Observed
 
-The repository should not contain live credentials, session values, restricted
-challenge-answer material, private packet captures, or sensitive third-party
-data.
+The independent PCAP contains:
 
-Security scope and reporting expectations are documented in
-[SECURITY.md](SECURITY.md).
+- 10 packets;
+- one TCP conversation between the two documented endpoints;
+- a GET request to `/status`;
+- a POST request to `/submit`;
+- Host `soc-lab.example`;
+- response codes `200` and `204`;
+- the documented synthetic POST form fields.
 
-## Reviewer Notes
+### Known by construction
 
-Recommended reading order:
+The IP addresses, ports, Host, paths, timestamps, sequence values and form data were deliberately generated by the local Python script.
 
-1. `EXECUTIVE_SUMMARY.md`
-2. `README.md`
-3. `SECURITY.md`
+### Not established
 
-The repository does not currently contain retained packet or command-output
-evidence for independent reproduction.
+The project does not establish:
+
+- real phishing;
+- real credential theft;
+- malicious-domain reputation;
+- production traffic;
+- malware execution;
+- SIEM or EDR investigation;
+- a real organizational incident;
+- historical TryHackMe packet findings.
+
+## Reviewer Path
+
+Recommended order:
+
+1. `README.md`
+2. `evidence/README.md`
+3. `evidence/packet-summary.txt`
+4. `evidence/http-requests.txt`
+5. `evidence/http-posts.txt`
+6. `evidence/timeline.txt`
+7. `REPRODUCE.md`
+8. `evidence/sha256.txt`
+
+The technical evidence is intentionally stronger than the narrative: input, analysis outputs, reproduction procedure and integrity checks are retained in the repository.
