@@ -1,5 +1,11 @@
-# Preserve raw TShark output byte-for-byte.
-# These generated files legitimately contain whitespace that Git would
-# otherwise report as a diff --check error.
-evidence/http-posts.txt -whitespace
-evidence/timeline.txt -whitespace
+# Preserve hashed reproducibility artifacts byte-for-byte.
+lab/generate_synthetic_pcap.py -text
+REPRODUCE.md -text
+evidence/README.md -text
+evidence/sha256.txt -text
+evidence/packet-summary.txt -text
+evidence/tcp-conversations.txt -text
+evidence/http-requests.txt -text
+evidence/http-posts.txt -text -whitespace
+evidence/timeline.txt -text -whitespace
+evidence/tool-versions.txt -text
