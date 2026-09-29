@@ -7,7 +7,7 @@ The repository contains two explicitly separate evidence classes:
 1. **Independent reproducible evidence** — a synthetic PCAP, generator, retained TShark outputs, hashes and reproduction instructions that can be independently verified.
 2. **Historical guided training** — documentation of an earlier TryHackMe exercise whose original PCAP and command evidence are not retained.
 
-The independent lab demonstrates current technical execution. It does **not** retroactively validate the historical TryHackMe findings.
+The independent lab demonstrates current technical execution and remains separate from the historical TryHackMe exercise.
 
 ## What this project demonstrates
 
@@ -73,7 +73,7 @@ TShark packet inspection
 retained outputs + SHA-256 verification
 ~~~
 
-No live network traffic, third-party service, malware, real credential or production system is required for this lab.
+The lab is fully self-contained and uses synthetic traffic, test values and retained local evidence.
 
 ## Observed results
 
@@ -104,7 +104,6 @@ The lab exercises mechanics directly relevant to Tier 1 network-focused triage:
 - preserving analysis artifacts;
 - distinguishing observation from inference.
 
-It does not claim SIEM, EDR, malware-analysis or production incident-response activity.
 
 ## Reproduce
 
@@ -178,24 +177,13 @@ https://tryhackme.com/room/tsharkchallengesone
 
 The historical exercise involved analysis of a supplied training PCAP and a phishing-related scenario. The original TryHackMe PCAP, original TShark command transcript, raw packet excerpts, completion screenshot and dated threat-intelligence lookup are **not retained in this repository**.
 
-Earlier repository narratives reported a look-alike domain, HTTP POST activity interpreted as credential submission and threat-intelligence correlation. Those remain **training-derived historical statements**, not independently verified findings.
+Earlier repository narratives reported a look-alike domain, HTTP POST activity interpreted as credential submission and threat-intelligence correlation. Those statements remain historical training context and are separate from the independently reproducible evidence set.
 
 No challenge answers, protected TryHackMe PCAP or reconstructed historical evidence are published here.
 
-### Not established by the independent lab
+### Independent lab scope
 
-The synthetic lab does not establish:
-
-- a real phishing incident;
-- credential theft or compromise;
-- malicious-domain reputation;
-- VirusTotal reputation;
-- malware execution;
-- production traffic;
-- a real customer or employer incident;
-- historical TryHackMe packet findings.
-
-The synthetic lab demonstrates technical capability, not historical provenance.
+The synthetic lab uses controlled traffic and test values to demonstrate reproducible TShark analysis mechanics. Historical TryHackMe findings and real-world incident provenance remain outside this evidence set.
 
 ## Repository structure
 
